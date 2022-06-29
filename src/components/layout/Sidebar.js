@@ -7,10 +7,11 @@ import {
     FaRegCalendarAlt,
     FaRegCalendar,
 } from 'react-icons/fa';
+
 import { Projects } from '../Projects';
 
-export const Sidebar = ({ projects = {} }) => {
-    const [active, setActive] = useState('inbox');
+export const Sidebar = ({ projects }) => {
+const [active, setActive] = useState('inbox');
 
     return (
         <div className="sidebar">
