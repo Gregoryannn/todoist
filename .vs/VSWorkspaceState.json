@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\public",
+    "\\src"
   ],
-  "SelectedNode": "\\C:\\Users\\asus\\Source\\Repos\\todoist",
+  "SelectedNode": "\\src\\serviceWorker.js",
   "PreviewInSolutionExplorer": false
 }

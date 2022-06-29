@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import './App.scss';
+import { firebase } from './firebase';
+import { Header } from './components/layout/Header';
+import { Content } from './components/layout/Content';
 
-function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
-    );
-}
+// TODO: Add custom firebase hook maybe?
+// TODO: RTL
 
-export default App;
+export const App = () => {
+    const [projects, setProjects] = useState(null);
+
+    useEffect(() => {
+        firebase
+            .firestore()
+            .collection('projects')
+            .where('userId', '==', 'jlIFXIwyAL3tzHMtzRbw')
+            .orderBy('projectId')
+            .get()
+            .then(snapshot => {
+                const allProjects = snapshot.docs.map(project => ({
+                    ...project.data(),
+                }));
+
+                setProjects(allProjects);
+            });
+    }, []);
+
+        return (
+
+    <main>
+      <Header />
+      <Content projects={projects} />
+    </main>
+        );
+
+};
