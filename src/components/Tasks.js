@@ -3,41 +3,47 @@ import { firebase } from '../firebase';
 import { Checkbox } from './Checkbox';
 import { AddTask } from './AddTask';
 
-const useTasks = () => {
-const [tasks, setTasks] = useState([]);
-const [archivedTasks, setArchivedTasks] = useState([]);
-
-    // return as an object so we can do like const { archivedTasks } = useTasks();
-   // const [archivedTasks, setArchivedTasks] = useState([]);
-
-    useEffect(() => {
+const useTasks = selectedProject => {
+        const [tasks, setTasks] = useState([]);
+        // return as an object so we can do like const { archivedTasks } = useTasks();
+        // const [archivedTasks, setArchivedTasks] = useState([]);
+        useEffect(() => {
             const unsubscribe = firebase
                 .firestore()
                 .collection('tasks')
                 .where('userId', '==', 'jlIFXIwyAL3tzHMtzRbw')
+                .where('projectId', '==', selectedProject)
                 .onSnapshot(snapshot => {
                     const newTasks = snapshot.docs.map(task => ({
                         id: task.id,
                         ...task.data(),
                     }));
-
                     setTasks(newTasks.filter(task => task.archived !== true));
                     // setArchivedTasks(newTasks.filter(task => task.archived !== false));
                 });
 
-        return () => unsubscribe();
-    }, []);
+            return () => unsubscribe();
+
+    }, [selectedProject]);
 
     return tasks;
 };
 
-export const Tasks = ({ projects }) => {
-    const tasks = useTasks();
+const getProjectName = (projects, projectId) =>
+        projects.find(project => project.projectId === projectId);
 
-    return (
-        <div className="tasks">
-            <h2>Next 7 days</h2>
-                 <ul className="tasks__list">
+export const Tasks = ({ projects, selectedProject }) => {
+        const tasks = useTasks(selectedProject);
+        let projectName = 'Inbox';
+
+        if (projects && selectedProject) {
+            projectName = getProjectName(projects, selectedProject).name;
+        }
+
+        return (
+            <div className="tasks">
+                <h2>{projectName}</h2>
+                <ul className="tasks__list">
                     {tasks.map(task => (
                         <li key={task.id}>
                             <Checkbox id={task.id} />
@@ -45,8 +51,7 @@ export const Tasks = ({ projects }) => {
                         </li>
                     ))}
                 </ul>
-
-                <AddTask projects={projects} />
-        </div>
-    );
-};
+                <AddTask projects={projects} selectedProject={selectedProject} />
+            </div>
+        );
+    };

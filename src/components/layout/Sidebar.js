@@ -10,51 +10,50 @@ import {
 
 import { Projects } from '../Projects';
 
-export const Sidebar = ({ projects }) => {
-const [active, setActive] = useState('inbox');
+export const Sidebar = ({ projects, setSelectedProject }) => {
+        const [active, setActive] = useState('inbox');
 
-    return (
-        <div className="sidebar">
-            <ul className="sidebar__generic">
-                <li
-                    className={active === 'inbox' ? 'active' : undefined}
-                    onClick={() => setActive('inbox')}
-                >
+        return (
+            <div className="sidebar">
+                <ul className="sidebar__generic">
+                    <li
+                        className={active === 'inbox' ? 'active' : undefined}
+                        onClick={() => setActive('inbox')}
+                    >
+                        <span>
+                            <FaInbox />
+                        </span>
+                        <span>Inbox</span>
+                    </li>
+                    <li
+                        className={active === 'today' ? 'active' : undefined}
+                        onClick={() => setActive('today')}
+                    >
+                        <span>
+                            <FaRegCalendar />
+                        </span>
+                        <span>Today</span>
+                    </li>
+                    <li
+                        className={active === 'next7' ? 'active' : undefined}
+                        onClick={() => setActive('next7')}
+                    >
+                        <span>
+                            <FaRegCalendarAlt />
+                        </span>
+                        <span>Next 7 days</span>
+                    </li>
+                </ul>
+                <div className="sidebar__middle">
                     <span>
-                        <FaInbox />
+                        <FaChevronDown />
                     </span>
-                    <span>Inbox</span>
-                </li>
-                <li
-                    className={active === 'today' ? 'active' : undefined}
-                    onClick={() => setActive('today')}
-                >
-                    <span>
-                        <FaRegCalendar />
-                    </span>
-                    <span>Today</span>
-                </li>
-                <li
-                    className={active === 'next7' ? 'active' : undefined}
-                    onClick={() => setActive('next7')}
-                >
-                    <span>
-                        <FaRegCalendarAlt />
-                    </span>
-                    <span>Next 7 days</span>
-                </li>
-            </ul>
+                    <h2>Projects</h2>
+                </div>
 
-            <div className="sidebar__middle">
-                <span>
-                    <FaChevronDown />
-                </span>
-                <h2>Projects</h2>
+                <ul className="sidebar__projects">
+                    <Projects projects={projects} setSelectedProject={setSelectedProject} />
+                </ul>
             </div>
-
-            <ul className="sidebar__projects">
-                <Projects projects={projects} />
-            </ul>
-        </div>
-    );
-};
+        );
+    };

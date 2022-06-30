@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\src"
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\layout"
   ],
-  "SelectedNode": "\\src\\serviceWorker.js",
+  "SelectedNode": "\\src\\components\\layout\\Sidebar.js",
   "PreviewInSolutionExplorer": false
 }
