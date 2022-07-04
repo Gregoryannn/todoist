@@ -1,5 +1,3 @@
-
-src / components / Tasks.js
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import { Checkbox } from './Checkbox';
@@ -16,14 +14,13 @@ export const Tasks = ({ projects, selectedProject }) => {
     if (collatedTasksExist(selectedProject) && selectedProject) {
         projectName = getCollatedTitle(collatedTasks, selectedProject).name;
     }
-
     return (
-         <div className="tasks" data-testid="tasks">
-                <h2 data-testid="project-name">{projectName}</h2>
+        <div className="tasks" data-testid="tasks">
+            <h2 data-testid="project-name">{projectName}</h2>
 
-                <ul className="tasks__list">
-                    {tasks.map(task => (
-          <li key={task.projectId}>
+            <ul className="tasks__list">
+                {tasks.map(task => (
+          <li key={`${task.id}`}>
             <Checkbox id={task.id} />
             <span>{task.task}</span>
           </li>
@@ -31,5 +28,5 @@ export const Tasks = ({ projects, selectedProject }) => {
       </ul>
       <AddTask projects={projects} selectedProject={selectedProject} />
     </div>
-            );
+    );
 };

@@ -9,16 +9,21 @@ import {
 } from 'react-icons/fa';
 
 import { Projects } from '../Projects';
+import { AddProject } from '../AddProject';
 
-export const Sidebar = ({ projects, setSelectedProject }) => {
+export const Sidebar = ({ projects, setProjects, setSelectedProject }) => {
         const [active, setActive] = useState('inbox');
 
         return (
-            <div className="sidebar">
+            <div className="sidebar" data-testid="sidebar">
                 <ul className="sidebar__generic">
                     <li
+                        data-testid="inbox"
                         className={active === 'inbox' ? 'active' : undefined}
-                        onClick={() => setActive('inbox')}
+                        onClick={() => {
+                            setActive('inbox');
+                            setSelectedProject('INBOX');
+                        }}
                     >
                         <span>
                             <FaInbox />
@@ -26,8 +31,12 @@ export const Sidebar = ({ projects, setSelectedProject }) => {
                         <span>Inbox</span>
                     </li>
                     <li
+                        data-testid="today"
                         className={active === 'today' ? 'active' : undefined}
-                        onClick={() => setActive('today')}
+                        onClick={() => {
+                            setActive('today');
+                            setSelectedProject('TODAY');
+                        }}
                     >
                         <span>
                             <FaRegCalendar />
@@ -35,8 +44,12 @@ export const Sidebar = ({ projects, setSelectedProject }) => {
                         <span>Today</span>
                     </li>
                     <li
+                        data-testid="next_7"
                         className={active === 'next7' ? 'active' : undefined}
-                        onClick={() => setActive('next7')}
+                        onClick={() => {
+                            setActive('next7');
+                            setSelectedProject('NEXT_7');
+                        }}
                     >
                         <span>
                             <FaRegCalendarAlt />
@@ -50,10 +63,10 @@ export const Sidebar = ({ projects, setSelectedProject }) => {
                     </span>
                     <h2>Projects</h2>
                 </div>
-
                 <ul className="sidebar__projects">
                     <Projects projects={projects} setSelectedProject={setSelectedProject} />
                 </ul>
+                  <AddProject projects={projects} setProjects={setProjects} />
             </div>
         );
     };
