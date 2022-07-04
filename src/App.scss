@@ -107,7 +107,6 @@ $generic-bg: #db4c3f;
         background-color: #f9f9f9;
     }
 }
-
 /* Darkmode
   ============================================ */
 .darkmode {
@@ -118,7 +117,6 @@ $generic-bg: #db4c3f;
         border-color: transparent;
     }
 }
-
 /* Header
   ============================================ */
 header {
@@ -484,7 +482,7 @@ header {
 
 .add-task__text, .add-project__text {
     display: inline-block;
-    color: gray;
+    color: #545454;
     font-size: 14px;
     margin-left: 15px;
 }
