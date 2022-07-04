@@ -3,9 +3,8 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\components",
-    "\\src\\components\\layout"
+    "\\src\\components"
   ],
-  "SelectedNode": "\\src\\components\\layout\\Sidebar.js",
+  "SelectedNode": "\\src\\components\\Tasks.js",
   "PreviewInSolutionExplorer": false
 }

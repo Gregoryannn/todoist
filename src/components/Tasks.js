@@ -1,57 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { firebase } from '../firebase';
+
+src / components / Tasks.js
+/* eslint-disable no-nested-ternary */
+import React from 'react';
 import { Checkbox } from './Checkbox';
 import { AddTask } from './AddTask';
+import { collatedTasks } from '../constants';
+import { getTitle, getCollatedTitle, collatedTasksExist } from '../helpers';
+import { useTasks } from '../hooks';
+export const Tasks = ({ projects, selectedProject }) => {
+    const { tasks } = useTasks(selectedProject);
+    let projectName = 'Inbox';
+    if (projects && selectedProject && !collatedTasksExist(selectedProject)) {
+        projectName = getTitle(projects, selectedProject).name;
+    }
+    if (collatedTasksExist(selectedProject) && selectedProject) {
+        projectName = getCollatedTitle(collatedTasks, selectedProject).name;
+    }
 
-const getProjectName = (projects, projectId) =>
-        projects.find(project => project.projectId === projectId);
+    return (
+         <div className="tasks" data-testid="tasks">
+                <h2 data-testid="project-name">{projectName}</h2>
 
-    export const useTasks = selectedProject => {
-        const [tasks, setTasks] = useState([]);
-        const [archivedTasks, setArchivedTasks] = useState([]);
-
-        useEffect(() => {
-            const unsubscribe = firebase
-                .firestore()
-                .collection('tasks')
-                .where('userId', '==', 'jlIFXIwyAL3tzHMtzRbw')
-                .where('projectId', '==', selectedProject)
-                .onSnapshot(snapshot => {
-                    const newTasks = snapshot.docs.map(task => ({
-                        id: task.id,
-                        ...task.data(),
-                    }));
-
-                    setTasks(newTasks.filter(task => task.archived !== true));
-                    setArchivedTasks(newTasks.filter(task => task.archived !== false));
-                });
-
-            return () => unsubscribe();
-        }, [selectedProject]);
-
-        return { tasks, archivedTasks };
-    };
-
-
-    export const Tasks = ({ projects, selectedProject }) => {
-        const { tasks, archivedTasks } = useTasks(selectedProject);
-        let projectName = 'Inbox';
-
-        if (projects && selectedProject) {
-            projectName = getProjectName(projects, selectedProject).name;
-        }
-        return (
-            <div className="tasks">
-                <h2>{projectName}</h2>
                 <ul className="tasks__list">
                     {tasks.map(task => (
-                        <li key={task.id}>
-                            <Checkbox id={task.id} />
-                            <span>{task.task}</span>
-                        </li>
-                    ))}
-                </ul>
-                <AddTask projects={projects} selectedProject={selectedProject} />
-            </div>
-        );
-    };
+          <li key={task.projectId}>
+            <Checkbox id={task.id} />
+            <span>{task.task}</span>
+          </li>
+        ))}
+      </ul>
+      <AddTask projects={projects} selectedProject={selectedProject} />
+    </div>
+            );
+};
