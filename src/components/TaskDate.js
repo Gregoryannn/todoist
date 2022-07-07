@@ -3,7 +3,7 @@ import { FaSpaceShuttle, FaSun, FaRegPaperPlane } from 'react-icons/fa';
 
 export const TaskDate = ({ showTaskDate, setShowTaskDate }) =>
     showTaskDate && (
-        <div className="task-date">
+        <div className="task-date" data-testid="task-date-overlay">
             <ul className="task-date__list">
                 <li onClick={() => setShowTaskDate(false)}>
                     <span>

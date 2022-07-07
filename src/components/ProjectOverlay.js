@@ -3,27 +3,32 @@
 import React from 'react';
 import { useProjectsValue } from '../context';
 
-export const ProjectOverlay = ({ setProject, showOverlay, setShowOverlay }) => {
-    const { projects } = useProjectsValue();
+export const ProjectOverlay = ({
+        setProject,
+        showProjectOverlay,
+        setShowProjectOverlay,
+    }) => {
+        const { projects } = useProjectsValue();
 
-    return (
-        projects &&
-        showOverlay && (
-            <div className="project-overlay">
-                <ul className="project-overlay__list">
-                    {projects.map(project => (
-                        <li
-                            key={project.projectId}
-                            onClick={() => {
-                                setProject(project.projectId);
-                                setShowOverlay(false);
-                            }}
-                        >
-                            {project.name}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        )
-    );
+        return (
+            projects &&
+            showOverlay && (
+                <div className="project-overlay">
+                      <ul className="project-overlay__list">
+                            {projects.map(project => (
+                                <li
+                                    key={project.projectId}
+                                    data-testid="project-overlay-action"
+                                    onClick={() => {
+                                        setProject(project.projectId);
+                                        setShowProjectOverlay(false);
+                                    }}
+                                >
+                                    {project.name}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    )
+                    );
 };

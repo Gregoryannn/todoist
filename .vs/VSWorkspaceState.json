@@ -3,11 +3,8 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\components",
-    "\\src\\components\\layout",
-    "\\src\\context",
-    "\\src\\helpers"
+    "\\src\\components"
   ],
-  "SelectedNode": "\\src\\helpers\\index.js",
+  "SelectedNode": "\\src\\components\\Tasks.js",
   "PreviewInSolutionExplorer": false
 }
