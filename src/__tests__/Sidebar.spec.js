@@ -53,5 +53,4 @@ describe('<Sidebar />', () => {
                 expect(queryByTestId('inbox').classList.contains('active')).toBeFalsy();
             });
         });
-        describe('Failure', () => { });
-    });
+   });

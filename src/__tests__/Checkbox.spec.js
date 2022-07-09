@@ -32,8 +32,4 @@ describe('<Checkbox />', () => {
             fireEvent.click(queryByTestId('checkbox-action'));
         });
     });
-
-    describe('Failure', () => {
-        it('does not render the project overlay with any projects', () => { });
-    });
 });
