@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import { FaPizzaSlice } from 'react-icons/fa';
 import { AddTask } from '../AddTask';
+
 export const Header = ({ darkMode, setDarkMode }) => {
+
     const [shouldShowMain, setShouldShowMain] = useState(false);
     const [showQuickAddTask, setShowQuickAddTask] = useState(false);
     return (
-        <header className="header">
+        <header className="header" data-testid="header">
             <nav>
                 <div className="logo">
                     <img src="/images/logo.png" alt="Todoist" />
