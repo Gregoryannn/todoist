@@ -55,10 +55,15 @@ export const useProjects = () => {
             .then(snapshot => {
                 const allProjects = snapshot.docs.map(project => ({
                     ...project.data(),
+                    docId: project.id,
                 }));
-                setProjects(allProjects);
-            });
-    }, []);
 
-    return { projects, setProjects };
+                if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
+                    setProjects(allProjects);
+                }
+            });
+
+}, [projects]);
+
+return { projects, setProjects };
 };

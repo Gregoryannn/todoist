@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
     "\\src",
-    "\\src\\components"
+    "\\src\\helpers",
+    "\\src\\__tests__"
   ],
-  "SelectedNode": "\\src\\components\\Checkbox.js",
+  "SelectedNode": "\\src\\__tests__\\Sidebar.spec.js",
   "PreviewInSolutionExplorer": false
 }
