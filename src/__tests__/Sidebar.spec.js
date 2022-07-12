@@ -8,7 +8,12 @@ jest.mock('../context', () => ({
     })),
     useProjectsValue: jest.fn(() => ({
         projects: [
-            { name: '🙌 THE OFFICE', projectId: '1', userId: 'jlIFXIwyAL3tzHMtzRbw' },
+            {
+                name: '🙌 THE OFFICE',
+                projectId: '1',
+                userId: 'jlIFXIwyAL3tzHMtzRbw',
+                docId: 'michael-scott',
+            },
         ],
     })),
 }));
@@ -52,5 +57,16 @@ describe('<Sidebar />', () => {
                 expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
                 expect(queryByTestId('inbox').classList.contains('active')).toBeFalsy();
             });
+
+      it('hides and shows the sidebar projects', () => {
+          const { queryByText, getByText } = render(<Sidebar />);
+          expect(queryByText('Add Project')).toBeTruthy();
+
+          fireEvent.click(getByText('Projects'));
+          expect(queryByText('Add Project')).toBeFalsy();
+
+          fireEvent.click(getByText('Projects'));
+          expect(queryByText('Add Project')).toBeTruthy();
+      });
         });
    });
