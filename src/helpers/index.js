@@ -9,12 +9,10 @@ export const generatePushId = (() => {
     const PUSH_CHARS =
         '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
 
-
     const lastRandChars = [];
 
     return function () {
         let now = new Date().getTime();
-        const lastPushTime = now;
 
         const timeStampChars = new Array(8);
         for (var i = 7; i >= 0; i--) {

@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\components",
     "\\src\\helpers",
-    "\\src\\__tests__"
+    "\\src\\hooks"
   ],
-  "SelectedNode": "\\src\\__tests__\\Sidebar.spec.js",
+  "SelectedNode": "\\src\\components\\IndividualProject.js",
   "PreviewInSolutionExplorer": false
 }
