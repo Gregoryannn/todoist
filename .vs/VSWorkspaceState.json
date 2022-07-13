@@ -3,9 +3,8 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\helpers",
-    "\\src\\hooks"
+    "\\src\\components\\layout"
   ],
-  "SelectedNode": "\\src\\components\\IndividualProject.js",
+  "SelectedNode": "\\src\\components\\layout\\Sidebar.js",
   "PreviewInSolutionExplorer": false
 }
