@@ -44,7 +44,7 @@ export const useTasks = selectedProject => {
     return { tasks, archivedTasks };
 };
 export const useProjects = () => {
-    const [projects, setProjects] = useState(null);
+    const [projects, setProjects] = useState([]);
     useEffect(() => {
         firebase
             .firestore()
