@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import PropTypes from 'prop-types';
 import { useSelectedProjectValue, useProjectsValue } from '../context';
 import { IndividualProject } from './IndividualProject';
 
@@ -7,7 +8,6 @@ export const Projects = ({ activeValue = null }) => {
     const [active, setActive] = useState(activeValue);
     const { setSelectedProject } = useSelectedProjectValue();
     const { projects } = useProjectsValue();
-
     return (
         projects &&
         projects.map(project => (
@@ -20,7 +20,6 @@ export const Projects = ({ activeValue = null }) => {
                         ? 'active sidebar__project'
                         : 'sidebar__project'
                 }
-               
             >
                 <div
                     role="button"
@@ -41,4 +40,8 @@ export const Projects = ({ activeValue = null }) => {
             </li>
         ))
     );
+};
+
+Projects.propTypes = {
+    activeValue: PropTypes.bool,
 };
