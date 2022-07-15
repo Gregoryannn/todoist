@@ -29,7 +29,7 @@ export const AddProject = ({ shouldShow = false }) => {
                 <div className="add-project__input" data-testid="add-project-inner">
                     <input
                         value={projectName}
-                        onChange={e => setProjectName(e.target.value)}
+                        onChange={(e) => setProjectName(e.target.value)}
                         className="add-project__name"
                         data-testid="project-name"
                         type="text"
@@ -48,7 +48,9 @@ export const AddProject = ({ shouldShow = false }) => {
                         data-testid="hide-project-overlay"
                         className="add-project__cancel"
                         onClick={() => setShow(false)}
-                        onKeyDown={() => setShow(false)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') setShow(false);
+                        }}
                         role="button"
                         tabIndex={0}
                     >
@@ -62,7 +64,9 @@ export const AddProject = ({ shouldShow = false }) => {
                 data-testid="add-project-action"
                 className="add-project__text"
                 onClick={() => setShow(!show)}
-                onKeyDown={() => setShow(!show)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') setShow(!show);
+                }}
                 role="button"
                 tabIndex={0}
             >
@@ -71,7 +75,6 @@ export const AddProject = ({ shouldShow = false }) => {
         </div>
     );
 };
-
 AddProject.propTypes = {
     shouldShow: PropTypes.bool,
 };

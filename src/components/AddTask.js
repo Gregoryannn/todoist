@@ -26,9 +26,9 @@ export const AddTask = ({
             collatedDate = moment().format('DD/MM/YYYY');
         } else if (projectId === 'NEXT_7') {
             collatedDate = moment()
-                .add(7, 'days')
-                .format('DD/MM/YYYY');
+            collatedDate = moment().add(7, 'days').format('DD/MM/YYYY');
         }
+
         return (
             task &&
             projectId &&
@@ -60,7 +60,9 @@ export const AddTask = ({
                     className="add-task__shallow"
                     data-testid="show-main-action"
                     onClick={() => setShowMain(!showMain)}
-                    onKeyDown={() => setShowMain(!showMain)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') setShowMain(!showMain);
+                    }}
                     tabIndex={0}
                     aria-label="Add task"
                     role="button"
@@ -84,94 +86,102 @@ export const AddTask = ({
                                         setShowProjectOverlay(false);
                                         setShowQuickAddTask(false);
                                     }}
-                                    onKeyDown={() => {
-                                        setShowMain(false);
-                                        setShowProjectOverlay(false);
-                                        setShowQuickAddTask(false);
-                                    }}
-                                    tabIndex={0}
-                                    role="button"
-                                >
-                                    X
-                                </span>
-                            </div>
-                        </>
-                    )}
-                    <ProjectOverlay
-                        setProject={setProject}
-                        showProjectOverlay={showProjectOverlay}
-                        setShowProjectOverlay={setShowProjectOverlay}
-                    />
-                    <TaskDate
-                        setTaskDate={setTaskDate}
-                        showTaskDate={showTaskDate}
-                        setShowTaskDate={setShowTaskDate}
-                    />
-                    <input
-                        className="add-task__content"
-                        aria-label="Enter your task"
-                        data-testid="add-task-content"
-                        type="text"
-                        value={task}
-                        onChange={e => setTask(e.target.value)}
-                    />
-                    <button
-                        type="button"
-                        className="add-task__submit"
-                        data-testid="add-task"
-                        onClick={() =>
-                            showQuickAddTask
-                                ? addTask() && setShowQuickAddTask(false)
-                                : addTask()
-                        }
-                    >
-                        Add Task
-                    </button>
-                    {!showQuickAddTask && (
-                        <span
-                            className="add-task__cancel"
-                            data-testid="add-task-main-cancel"
-                            onClick={() => {
-                                setShowMain(false);
-                                setShowProjectOverlay(false);
-                            }}
-                            onKeyDown={() => {
-                                setShowMain(false);
-                                setShowProjectOverlay(false);
-                            }}
-                            aria-label="Cancel adding a task"
-                            tabIndex={0}
-                            role="button"
-                        >
-                            Cancel
-                        </span>
-                    )}
-                    <span
-                        className="add-task__project"
-                        data-testid="show-project-overlay"
-                        onClick={() => setShowProjectOverlay(!showProjectOverlay)}
-                        onKeyDown={() => setShowProjectOverlay(!showProjectOverlay)}
-                        tabIndex={0}
-                        role="button"
-                    >
-                        <FaRegListAlt />
-                    </span>
-                    <span
-                        className="add-task__date"
-                        data-testid="show-task-date-overlay"
-                        onClick={() => setShowTaskDate(!showTaskDate)}
-                        onKeyDown={() => setShowTaskDate(!showTaskDate)}
-                        tabIndex={0}
-                        role="button"
-                    >
-                        <FaRegCalendarAlt />
-                    </span>
-                </div>
+                                        onKeyDown = {(e) => {
+                                     if (e.key === 'Enter') {
+                                    setShowMain(false);
+                                    setShowProjectOverlay(false);
+                                    setShowQuickAddTask(false);
+                                        }
+                                   }}
+                                tabIndex={0}
+                                role="button"
+                >
+                                X
+                            </span>
+                        </div>
+            </>
             )}
-        </div>
-    );
+            <ProjectOverlay
+                setProject={setProject}
+                showProjectOverlay={showProjectOverlay}
+                setShowProjectOverlay={setShowProjectOverlay}
+            />
+            <TaskDate
+                setTaskDate={setTaskDate}
+                showTaskDate={showTaskDate}
+                setShowTaskDate={setShowTaskDate}
+            />
+            <input
+                className="add-task__content"
+                aria-label="Enter your task"
+                data-testid="add-task-content"
+                type="text"
+                value={task}
+                onChange={(e) => setTask(e.target.value)}
+            />
+            <button
+                type="button"
+                className="add-task__submit"
+                data-testid="add-task"
+                onClick={() =>
+                    showQuickAddTask
+                        ? addTask() && setShowQuickAddTask(false)
+                        : addTask()
+                }
+            >
+                Add Task
+            </button>
+            {!showQuickAddTask && (
+                <span
+                    className="add-task__cancel"
+                    data-testid="add-task-main-cancel"
+                    onClick={() => {
+                        setShowMain(false);
+                        setShowProjectOverlay(false);
+                    }}
+                   onKeyDown = {(e) => {
+                if (e.key === 'Enter') {
+                setShowMain(false);
+            setShowProjectOverlay(false);
+                }
+              }}
+            aria-label="Cancel adding a task"
+            tabIndex={0}
+            role="button"
+            >
+            Cancel
+        </span>
+    )
+}
+          <span
+            className="add-task__project"
+            data-testid="show-project-overlay"
+            onClick={() => setShowProjectOverlay(!showProjectOverlay)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') setShowProjectOverlay(!showProjectOverlay);
+            }}
+            tabIndex={0}
+            role="button"
+          >
+            <FaRegListAlt />
+          </span>
+          <span
+            className="add-task__date"
+            data-testid="show-task-date-overlay"
+            onClick={() => setShowTaskDate(!showTaskDate)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') setShowTaskDate(!showTaskDate);
+            }}
+            tabIndex={0}
+            role="button"
+          >
+            <FaRegCalendarAlt />
+          </span>
+        </div >
+      )}
+    </div >
+  );
 };
-
 AddTask.propTypes = {
     showAddTaskMain: PropTypes.bool,
     shouldShowMain: PropTypes.bool,

@@ -8,7 +8,8 @@ export const IndividualProject = ({ project }) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const { projects, setProjects } = useProjectsValue();
     const { setSelectedProject } = useSelectedProjectValue();
-    const deleteProject = docId => {
+
+    const deleteProject = (docId) => {
         firebase
             .firestore()
             .collection('projects')
@@ -19,6 +20,7 @@ export const IndividualProject = ({ project }) => {
                 setSelectedProject('INBOX');
             });
     };
+
     return (
         <>
             <span className="sidebar__dot">•</span>
@@ -27,7 +29,10 @@ export const IndividualProject = ({ project }) => {
                 className="sidebar__project-delete"
                 data-testid="delete-project"
                 onClick={() => setShowConfirm(!showConfirm)}
-                onKeyDown={() => setShowConfirm(!showConfirm)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') setShowConfirm(!showConfirm);
+                }}
+
                 tabIndex={0}
                 role="button"
                 aria-label="Confirm deletion of project"
@@ -45,8 +50,9 @@ export const IndividualProject = ({ project }) => {
                             </button>
                             <span
                                 onClick={() => setShowConfirm(!showConfirm)}
-                                onKeyDown={() => setShowConfirm(!showConfirm)}
-                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') setShowConfirm(!showConfirm);
+                                }}                                tabIndex={0}
                                 role="button"
                                 aria-label="Cancel adding project, do not delete"
                             >

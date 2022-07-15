@@ -3,8 +3,8 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\components\\layout"
+    "\\src\\context"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\src\\context\\selected-project-context.js",
   "PreviewInSolutionExplorer": false
 }

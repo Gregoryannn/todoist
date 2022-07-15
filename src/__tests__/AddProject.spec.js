@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import { AddProject } from '../components/AddProject';
-import { useSelectedProjectValue } from '../context';
 
 jest.mock('../context', () => ({
     useSelectedProjectValue: jest.fn(),
@@ -53,28 +52,12 @@ jest.mock('../firebase', () => ({
 
 beforeEach(cleanup);
 
-describe('<AddProject />', () => {
-
-
-    describe('Success', () => {
+        describe('<AddProject />', () => {
+        describe('Success', () => {
         it('renders <AddProject />', () => {
-            const { queryByTestId } = render(<AddProject shouldShow />);
+            const { queryByTestId } = render(<AddProject />);
             expect(queryByTestId('add-project')).toBeTruthy();
         });
-
-            it('renders <AddProject /> and adds a project using onClick', () => {
-                const { queryByTestId } = render(<AddProject shouldShow />);
-                expect(queryByTestId('add-project')).toBeTruthy();
-
-                fireEvent.change(queryByTestId('project-name'), {
-                    target: { value: 'Best project in the world!' },
-                });
-
-                expect(queryByTestId('project-name').value).toBe(
-                'Best project in the world!'
-                );
-                fireEvent.click(queryByTestId('add-project-submit'));
-            });
 
             it('hide project overlay with cancelling', () => {
                 it('renders <AddProject /> and adds a project using onKeyDown', () => {
@@ -91,7 +74,7 @@ describe('<AddProject />', () => {
                     fireEvent.keyDown(queryByTestId('add-project-submit'));
                 });
 
-                    it('hides the project overlay when cancelled using onClick', () => {
+                it('hides the project overlay when cancelled onKeyDown', () => {
                         const { queryByTestId, getByText } = render(<AddProject shouldShow />);
                         expect(queryByTestId('add-project')).toBeTruthy();
                         expect(queryByTestId('add-project-inner')).toBeTruthy();
@@ -104,8 +87,17 @@ describe('<AddProject />', () => {
                         expect(queryByTestId('add-project')).toBeTruthy();
                         expect(queryByTestId('add-project-inner')).toBeTruthy();
 
-                        fireEvent.keyDown(getByText('Cancel'));
-                        expect(queryByTestId('add-project')).toBeTruthy();
+                fireEvent.keyDown(getByText('Cancel'), {
+                    key: 'a',
+                    code: 65,
+                });
+                expect(queryByTestId('add-project')).toBeTruthy();
+                expect(queryByTestId('add-project-inner')).toBeTruthy();
+
+                fireEvent.keyDown(getByText('Cancel'), {
+                    key: 'Enter',
+                    code: 13,
+                });                        expect(queryByTestId('add-project')).toBeTruthy();
                         expect(queryByTestId('add-project-inner')).toBeFalsy();
                     });
 
@@ -124,8 +116,17 @@ describe('<AddProject />', () => {
                             expect(queryByTestId('add-project')).toBeTruthy();
                             expect(queryByTestId('add-project-inner')).toBeTruthy();
 
-                            fireEvent.keyDown(queryByTestId('add-project-action'));
-                            expect(queryByTestId('add-project')).toBeTruthy();
+                        fireEvent.keyDown(queryByTestId('add-project-action'), {
+                            key: 'a',
+                            code: 65,
+                        });
+                        expect(queryByTestId('add-project')).toBeTruthy();
+                        expect(queryByTestId('add-project-inner')).toBeTruthy();
+
+                        fireEvent.keyDown(queryByTestId('add-project-action'), {
+                            key: 'Enter',
+                            code: 13,
+                        });                            expect(queryByTestId('add-project')).toBeTruthy();
                             expect(queryByTestId('add-project-inner')).toBeFalsy();
                         });
                     });

@@ -2,6 +2,8 @@
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import { Sidebar } from '../components/layout/Sidebar';
 
+beforeEach(cleanup);
+
 jest.mock('../context', () => ({
     useSelectedProjectValue: jest.fn(() => ({
         setSelectedProject: jest.fn(() => 'INBOX'),
@@ -18,71 +20,111 @@ jest.mock('../context', () => ({
         ],
     })),
 }));
-beforeEach(cleanup);
+
 
 describe('<Sidebar />', () => {
-   
     describe('Success', () => {
-            it('renders the <Sidebar />', () => {
-                const { queryByTestId } = render(<Sidebar />);
-                expect(queryByTestId('sidebar')).toBeTruthy();
+        it('renders the <Sidebar />', () => {
+            const { queryByTestId } = render(<Sidebar />);
+            expect(queryByTestId('sidebar')).toBeTruthy();
+        });
+        it('changes the active project to inbox in collated tasks', () => {
+            const { queryByTestId } = render(<Sidebar />);
+            expect(queryByTestId('sidebar')).toBeTruthy();
+            fireEvent.click(queryByTestId('inbox-action'));
+            fireEvent.keyDown(queryByTestId('inbox-action'), {
+                key: 'a',
+                code: 65,
+            });
+            fireEvent.keyDown(queryByTestId('inbox-action'), {
+                key: 'Enter',
+                code: 13,
             });
 
-            it('changes active project to inbox in collated tasks', () => {
-                it('changes the active project to inbox in collated tasks', () => {
-                    const { queryByTestId } = render(<Sidebar />);
-                    fireEvent.click(queryByTestId('inbox'));
-                    expect(queryByTestId('sidebar')).toBeTruthy();
-                    fireEvent.click(queryByTestId('inbox-action'));
-                    fireEvent.keyDown(queryByTestId('inbox-action'));
+            expect(queryByTestId('inbox').classList.contains('active')).toBeTruthy();
+            expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
+            expect(queryByTestId('next_7').classList.contains('active')).toBeFalsy();
+        });
+        it('changes the active project to today in collated tasks', () => {
+            const { queryByTestId } = render(<Sidebar />);
+            expect(queryByTestId('sidebar')).toBeTruthy();
+            fireEvent.click(queryByTestId('today-action'));
+            fireEvent.click(queryByTestId('inbox-action'));
+            fireEvent.keyDown(queryByTestId('today-action'), {
+                key: 'a',
+                code: 65,
+            });
 
-                    expect(queryByTestId('inbox').classList.contains('active')).toBeTruthy();
-                    expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
-                    expect(queryByTestId('next_7').classList.contains('active')).toBeFalsy();
-                });
+            expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
+            expect(queryByTestId('inbox').classList.contains('active')).toBeTruthy();
+            expect(queryByTestId('next_7').classList.contains('active')).toBeFalsy();
 
-                    it('changes the active project to today in collated tasks', () => {
-                        const { queryByTestId } = render(<Sidebar />);
-                        expect(queryByTestId('sidebar')).toBeTruthy();
-                        fireEvent.click(queryByTestId('today-action'));
-                        fireEvent.keyDown(queryByTestId('today-action'));
+            fireEvent.keyDown(queryByTestId('today-action'), {
+                key: 'Enter',
+                code: 13,
+            });
 
-                        expect(queryByTestId('today').classList.contains('active')).toBeTruthy();
-                        expect(queryByTestId('inbox').classList.contains('active')).toBeFalsy();
-                        expect(queryByTestId('next_7').classList.contains('active')).toBeFalsy();
-                    });
+            expect(queryByTestId('today').classList.contains('active')).toBeTruthy();
+            expect(queryByTestId('inbox').classList.contains('active')).toBeFalsy();
+            expect(queryByTestId('next_7').classList.contains('active')).toBeFalsy();
+        });
+        it('changes the active project to next_7 in collated tasks', () => {
+            const { queryByTestId } = render(<Sidebar />);
+            expect(queryByTestId('sidebar')).toBeTruthy();
+            fireEvent.keyDown(queryByTestId('next_7-action'));
+            fireEvent.click(queryByTestId('inbox-action'));
+            fireEvent.keyDown(queryByTestId('next_7-action'), {
+                key: 'a',
+                code: 65,
+            });
 
-                        it('changes the active project to next_7 in collated tasks', () => {
-                            const { queryByTestId } = render(<Sidebar />);
-                            expect(queryByTestId('sidebar')).toBeTruthy();
-                            fireEvent.click(queryByTestId('next_7-action'));
-                            fireEvent.keyDown(queryByTestId('next_7-action'));
+            expect(queryByTestId('next_7').classList.contains('active')).toBeFalsy();
+            expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
+            expect(queryByTestId('inbox').classList.contains('active')).toBeTruthy();
 
-                            expect(queryByTestId('next_7').classList.contains('active')).toBeTruthy();
-                            expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
-                            expect(queryByTestId('inbox').classList.contains('active')).toBeFalsy();
-                        });
+            fireEvent.keyDown(queryByTestId('next_7-action'), {
+                key: 'Enter',
+                code: 13,
+            });
+            expect(queryByTestId('next_7').classList.contains('active')).toBeTruthy();
+            expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
+            expect(queryByTestId('inbox').classList.contains('active')).toBeFalsy();
+        });
+        it('hides and shows the sidebar projects using onClick', () => {
+            const { queryByTestId, queryByText, getByText } = render(<Sidebar />);
+            expect(queryByTestId('sidebar')).toBeTruthy();
+            fireEvent.click(getByText('Projects'));
+            expect(queryByText('Add Project')).toBeFalsy();
+            fireEvent.click(getByText('Projects'));
+            expect(queryByText('Add Project')).toBeTruthy();
+        });
+        it('hides and shows the sidebar projects using onKeyDown', () => {
+            const { queryByTestId, queryByText, getByText } = render(<Sidebar />);
+            expect(queryByTestId('sidebar')).toBeTruthy();
 
-                           it('hides and shows the sidebar projects using onClick', () => {
-                                const { queryByTestId, queryByText, getByText } = render(<Sidebar />);
-                                expect(queryByTestId('sidebar')).toBeTruthy();
+            fireEvent.keyDown(getByText('Projects'), {
+                key: 'a',
+                code: 65,
+            });
+            expect(queryByText('Add Project')).toBeTruthy();
 
-                                fireEvent.click(getByText('Projects'));
-                                expect(queryByText('Add Project')).toBeFalsy();
+            fireEvent.keyDown(getByText('Projects'), {
+                key: 'Enter',
+                code: 13,
+            });
+            expect(queryByText('Add Project')).toBeFalsy();
 
-                                fireEvent.click(getByText('Projects'));
-                                expect(queryByText('Add Project')).toBeTruthy();
-                            });
+            fireEvent.keyDown(getByText('Projects'), {
+                key: 'a',
+                code: 65,
+            });
+            expect(queryByText('Add Project')).toBeFalsy();
 
-                            it('hides and shows the sidebar projects using onKeyDown', () => {
-                                const { queryByTestId, queryByText, getByText } = render(<Sidebar />);
-                                expect(queryByTestId('sidebar')).toBeTruthy();
-
-                                fireEvent.keyDown(getByText('Projects'));
-                                expect(queryByText('Add Project')).toBeFalsy();
-
-                                fireEvent.keyDown(getByText('Projects'));
-                                expect(queryByText('Add Project')).toBeTruthy();
-                            });
-                        });
-                    });
+            fireEvent.keyDown(getByText('Projects'), {
+                key: 'Enter',
+                code: 13,
+            });
+            expect(queryByText('Add Project')).toBeTruthy();
+        });
+    });
+});
