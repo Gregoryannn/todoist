@@ -6,6 +6,7 @@ import { AddTask } from '../AddTask';
 export const Header = ({ darkMode, setDarkMode }) => {
     const [shouldShowMain, setShouldShowMain] = useState(false);
     const [showQuickAddTask, setShowQuickAddTask] = useState(false);
+
     return (
         <header className="header" data-testid="header">
             <nav>
@@ -23,7 +24,6 @@ export const Header = ({ darkMode, setDarkMode }) => {
                                     setShowQuickAddTask(true);
                                     setShouldShowMain(true);
                                 }}
-                                
                             >
                                 +
                             </button>
@@ -41,6 +41,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
                     </ul>
                 </div>
             </nav>
+
             <AddTask
                 showAddTaskMain={false}
                 shouldShowMain={shouldShowMain}

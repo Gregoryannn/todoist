@@ -21,13 +21,13 @@ jest.mock('../context', () => ({
     })),
 }));
 
-
 describe('<Sidebar />', () => {
     describe('Success', () => {
         it('renders the <Sidebar />', () => {
             const { queryByTestId } = render(<Sidebar />);
             expect(queryByTestId('sidebar')).toBeTruthy();
         });
+
         it('changes the active project to inbox in collated tasks', () => {
             const { queryByTestId } = render(<Sidebar />);
             expect(queryByTestId('sidebar')).toBeTruthy();
@@ -45,6 +45,7 @@ describe('<Sidebar />', () => {
             expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
             expect(queryByTestId('next_7').classList.contains('active')).toBeFalsy();
         });
+
         it('changes the active project to today in collated tasks', () => {
             const { queryByTestId } = render(<Sidebar />);
             expect(queryByTestId('sidebar')).toBeTruthy();
@@ -68,10 +69,11 @@ describe('<Sidebar />', () => {
             expect(queryByTestId('inbox').classList.contains('active')).toBeFalsy();
             expect(queryByTestId('next_7').classList.contains('active')).toBeFalsy();
         });
+
         it('changes the active project to next_7 in collated tasks', () => {
             const { queryByTestId } = render(<Sidebar />);
             expect(queryByTestId('sidebar')).toBeTruthy();
-            fireEvent.keyDown(queryByTestId('next_7-action'));
+            fireEvent.click(queryByTestId('next_7-action'));
             fireEvent.click(queryByTestId('inbox-action'));
             fireEvent.keyDown(queryByTestId('next_7-action'), {
                 key: 'a',
@@ -90,14 +92,18 @@ describe('<Sidebar />', () => {
             expect(queryByTestId('today').classList.contains('active')).toBeFalsy();
             expect(queryByTestId('inbox').classList.contains('active')).toBeFalsy();
         });
+
         it('hides and shows the sidebar projects using onClick', () => {
             const { queryByTestId, queryByText, getByText } = render(<Sidebar />);
             expect(queryByTestId('sidebar')).toBeTruthy();
+
             fireEvent.click(getByText('Projects'));
             expect(queryByText('Add Project')).toBeFalsy();
+
             fireEvent.click(getByText('Projects'));
             expect(queryByText('Add Project')).toBeTruthy();
         });
+
         it('hides and shows the sidebar projects using onKeyDown', () => {
             const { queryByTestId, queryByText, getByText } = render(<Sidebar />);
             expect(queryByTestId('sidebar')).toBeTruthy();

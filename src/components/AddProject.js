@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { firebase } from '../firebase';
 import { generatePushId } from '../helpers';
 import { useProjectsValue } from '../context';
+
 export const AddProject = ({ shouldShow = false }) => {
     const [show, setShow] = useState(shouldShow);
     const [projectName, setProjectName] = useState('');
     const projectId = generatePushId();
     const { projects, setProjects } = useProjectsValue();
+
     const addProject = () =>
         projectName &&
         firebase
@@ -23,6 +25,7 @@ export const AddProject = ({ shouldShow = false }) => {
                 setProjectName('');
                 setShow(false);
             });
+
     return (
         <div className="add-project" data-testid="add-project">
             {show && (
@@ -75,6 +78,7 @@ export const AddProject = ({ shouldShow = false }) => {
         </div>
     );
 };
+
 AddProject.propTypes = {
     shouldShow: PropTypes.bool,
 };

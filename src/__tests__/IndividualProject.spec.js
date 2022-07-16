@@ -18,6 +18,7 @@ jest.mock('../firebase', () => ({
         })),
     },
 }));
+
 jest.mock('../context', () => ({
     useSelectedProjectValue: jest.fn(() => ({
         setSelectedProject: jest.fn(() => 'INBOX'),
@@ -34,6 +35,7 @@ jest.mock('../context', () => ({
         ],
     })),
 }));
+
 describe('<IndividualProject />', () => {
     const project = {
         name: '🙌 THE OFFICE',
@@ -41,21 +43,26 @@ describe('<IndividualProject />', () => {
         userId: 'jlIFXIwyAL3tzHMtzRbw',
         docId: 'michael-scott',
     };
+
     describe('Success', () => {
         it('renders our project', () => {
             const { getByText } = render(<IndividualProject project={project} />);
             expect(getByText('🙌 THE OFFICE')).toBeTruthy();
         });
+
         it('renders the delete overlay and then deletes a project using onClick', () => {
             const { queryByTestId, getByText } = render(
                 <IndividualProject project={project} />
             );
+
             fireEvent.click(queryByTestId('delete-project'));
             expect(
                 getByText('Are you sure you want to delete this project?')
             ).toBeTruthy();
+
             fireEvent.click(getByText('Delete'));
         });
+
         it('renders the delete overlay and then deletes a project using onKeyDown', () => {
             const { queryByTestId, getByText } = render(
                 <IndividualProject project={project} />
@@ -73,18 +80,23 @@ describe('<IndividualProject />', () => {
             expect(
                 getByText('Are you sure you want to delete this project?')
             ).toBeTruthy();
+
             fireEvent.click(getByText('Delete'));
         });
+
         it('renders the delete overlay and then cancels using onClick', () => {
             const { queryByTestId, getByText } = render(
                 <IndividualProject project={project} />
             );
+
             fireEvent.click(queryByTestId('delete-project'));
             expect(
                 getByText('Are you sure you want to delete this project?')
             ).toBeTruthy();
+
             fireEvent.click(getByText('Cancel'));
         });
+
         it('renders the delete overlay and then cancels using onKeyDown', () => {
             const { queryByTestId, getByText } = render(
                 <IndividualProject project={project} />
