@@ -3,8 +3,10 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\context"
+    "\\src\\components\\layout",
+    "\\src\\context",
+    "\\src\\__tests__"
   ],
-  "SelectedNode": "\\src\\context\\selected-project-context.js",
+  "SelectedNode": "\\src\\components\\layout\\Sidebar.js",
   "PreviewInSolutionExplorer": false
 }
