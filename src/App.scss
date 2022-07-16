@@ -2,6 +2,7 @@
    LETS BUILD TODOIST
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
+
 // General Settings
 html {
     -webkit-box-sizing: border-box;
@@ -29,10 +30,12 @@ ul {
     margin: 0;
     padding: 0;
 }
+
 // Variables
 $generic-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 4px 11px;
 $generic-border: 1px solid #f1f1f1;
 $generic-bg: #db4c3f;
+
 /* Mixins
   ============================================ */
 @mixin box-overlay() {
@@ -130,6 +133,7 @@ $generic-bg: #db4c3f;
         @content;
     }
 }
+
 /* Darkmode
   ============================================ */
 .darkmode {
@@ -140,6 +144,7 @@ $generic-bg: #db4c3f;
         border-color: transparent;
     }
 }
+
 /* Header
   ============================================ */
 header {
@@ -240,6 +245,7 @@ header {
         }
     }
 }
+
 /* Sidebar
   ============================================ */
 .sidebar {
@@ -412,6 +418,7 @@ header {
         }
     }
 }
+
 /* Show Confirm Delete
   ============================================ */
 .project-delete-modal {
@@ -444,6 +451,7 @@ header {
         }
     }
 }
+
 /* Main Content
   ============================================ */
 .content {
@@ -455,6 +463,7 @@ header {
     max-width: 922px;
     margin: auto;
 }
+
 /* Tasks
   ============================================ */
 .tasks {
@@ -522,6 +531,7 @@ header {
         }
     }
 }
+
 /* Add Task
   ============================================ */
 .add-task {
@@ -627,6 +637,7 @@ header {
     font-size: 14px;
     margin-left: 15px;
 }
+
 /* Task Date
   ============================================ */
 .task-date {
@@ -659,6 +670,7 @@ header {
         }
     }
 }
+
 /* Project Overlay
   ============================================ */
 .project-overlay {
@@ -680,6 +692,7 @@ header {
         }
     }
 }
+
 /* Add Project
   ============================================ */
 .add-project {
